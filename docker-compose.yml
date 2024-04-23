@@ -1,0 +1,16 @@
+version: "3"
+services:
+  mariadb:
+    container_name: "mariadb"
+    image: mariadb:10
+    restart: always
+    ports:
+      - 3308:3306
+    volumes:
+      - "./mariadb/conf.d:/etc/mysql/conf.d"
+      - "./mariadb/data:/var/lib/mysql"
+    environment:
+      MARIADB_DATABASE: nncdb
+      MARIADB_USER: nnc
+      MARIADB_PASSWORD: abcd1234
+      MARIADB_ROOT_PASSWORD: 1111
