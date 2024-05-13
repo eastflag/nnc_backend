@@ -1,7 +1,7 @@
 package com.eastflag.nnc.config;
 
 import com.eastflag.nnc.auditing.ApplicationAuditAware;
-import com.eastflag.nnc.user.UserRepository;
+import com.eastflag.nnc.auth.PrincipalDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,8 +10,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -19,18 +17,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-  private final UserRepository repository;
-
-  @Bean
-  public UserDetailsService userDetailsService() {
-    return username -> repository.findByEmail(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-  }
+  private final PrincipalDetailsService principalDetailsService;
 
   @Bean
   public AuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-    authProvider.setUserDetailsService(userDetailsService());
+    authProvider.setUserDetailsService(principalDetailsService);
     authProvider.setPasswordEncoder(passwordEncoder());
     return authProvider;
   }
