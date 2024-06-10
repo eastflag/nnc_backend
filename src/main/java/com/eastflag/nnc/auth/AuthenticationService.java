@@ -36,8 +36,9 @@ public class AuthenticationService {
         .role(request.getRole())
         .build();
     var savedUser = repository.save(user);
-    var jwtToken = jwtService.generateToken(user);
-    var refreshToken = jwtService.generateRefreshToken(user);
+    var userDetails = user.getPrincipalDetails();
+    var jwtToken = jwtService.generateToken(userDetails);
+    var refreshToken = jwtService.generateRefreshToken(userDetails);
     saveUserToken(savedUser, jwtToken);
     return AuthenticationResponse.builder()
         .accessToken(jwtToken)
@@ -54,8 +55,9 @@ public class AuthenticationService {
     );
     var user = repository.findByEmail(request.getEmail())
         .orElseThrow();
-    var jwtToken = jwtService.generateToken(user);
-    var refreshToken = jwtService.generateRefreshToken(user);
+    var userDetails = user.getPrincipalDetails();
+    var jwtToken = jwtService.generateToken(userDetails);
+    var refreshToken = jwtService.generateRefreshToken(userDetails);
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
     return AuthenticationResponse.builder()
@@ -101,8 +103,9 @@ public class AuthenticationService {
     if (userEmail != null) {
       var user = this.repository.findByEmail(userEmail)
               .orElseThrow();
-      if (jwtService.isTokenValid(refreshToken, user)) {
-        var accessToken = jwtService.generateToken(user);
+      var userDetails = user.getPrincipalDetails();
+      if (jwtService.isTokenValid(refreshToken, userDetails)) {
+        var accessToken = jwtService.generateToken(userDetails);
         revokeAllUserTokens(user);
         saveUserToken(user, accessToken);
         var authResponse = AuthenticationResponse.builder()
