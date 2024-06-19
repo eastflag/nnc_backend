@@ -2,13 +2,8 @@ package com.eastflag.nnc.user;
 
 import com.eastflag.nnc.auth.PrincipalDetails;
 import com.eastflag.nnc.token.Token;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,11 +19,13 @@ import lombok.NoArgsConstructor;
 public class User {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
-  private String firstname;
-  private String lastname;
+
+  private String nickname;
+
   private String email;
+
   private String password;
 
   @Enumerated(EnumType.STRING)
