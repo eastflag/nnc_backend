@@ -64,6 +64,6 @@
         </logger>
 
         <!-- ROOT logger-->
-        <Root level="info"></Root>
+        <Root level="debug"></Root>
     </Loggers>
 </Configuration>

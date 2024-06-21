@@ -1,5 +1,6 @@
 package com.eastflag.nnc.auth;
 
+import com.eastflag.nnc.common.CommonResponse;
 import com.eastflag.nnc.config.JwtService;
 import com.eastflag.nnc.token.Token;
 import com.eastflag.nnc.token.TokenRepository;
@@ -9,15 +10,15 @@ import com.eastflag.nnc.user.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -25,7 +26,6 @@ public class AuthenticationService {
   private final TokenRepository tokenRepository;
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
-  private final AuthenticationManager authenticationManager;
 
   public AuthenticationResponse register(RegisterRequest request) {
     var user = User.builder()
@@ -45,24 +45,35 @@ public class AuthenticationService {
         .build();
   }
 
-  public AuthenticationResponse authenticate(AuthenticationRequest request) {
-    authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(
-            request.getEmail(),
-            request.getPassword()
-        )
-    );
-    var user = repository.findByEmail(request.getEmail())
-        .orElseThrow();
+  public CommonResponse authenticate(AuthenticationRequest request) {
+    var optionalUser = repository.findByEmail(request.getEmail());
+    if (optionalUser.isEmpty()) {
+      return CommonResponse.builder()
+              .code(100)
+              .message("FAIL").build();
+    }
+
+    var user = optionalUser.get();
+    if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+      return CommonResponse.builder()
+              .code(100)
+              .message("FAIL").build();
+    }
+
     var userDetails = user.getPrincipalDetails();
     var jwtToken = jwtService.generateToken(userDetails);
     var refreshToken = jwtService.generateRefreshToken(userDetails);
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
-    return AuthenticationResponse.builder()
+    var authenticationResponse = AuthenticationResponse.builder()
         .accessToken(jwtToken)
             .refreshToken(refreshToken)
         .build();
+    return CommonResponse.builder()
+            .code(0)
+            .message("SUCCESS")
+            .data(authenticationResponse)
+            .build();
   }
 
   private void saveUserToken(User user, String jwtToken) {
