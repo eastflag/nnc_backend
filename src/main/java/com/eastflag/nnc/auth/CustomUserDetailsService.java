@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PrincipalDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -19,6 +19,6 @@ public class PrincipalDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> userEntity = userRepository.findByEmail(username);
 
-        return userEntity.map(PrincipalDetails::new).orElseGet(() -> new PrincipalDetails(null));
+        return userEntity.map(CustomUserDetails::new).orElseGet(() -> new CustomUserDetails(null));
     }
 }

@@ -1,6 +1,6 @@
 package com.eastflag.nnc.demo;
 
-import com.eastflag.nnc.auth.PrincipalDetails;
+import com.eastflag.nnc.auth.CustomUserDetails;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,8 +21,8 @@ public class DemoController {
 
 
   @GetMapping("/user/demo")
-  public ResponseEntity<String> userDemo(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-    log.info("user: {}", principalDetails.getUsername());
+  public ResponseEntity<String> userDemo(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+    log.info("user: {}", customUserDetails.getUsername());
     return ResponseEntity.ok("Hello from /api/vi/user/demo");
   }
 }

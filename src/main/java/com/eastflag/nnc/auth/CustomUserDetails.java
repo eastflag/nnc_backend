@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class PrincipalDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails {
 
     private final User user;
 

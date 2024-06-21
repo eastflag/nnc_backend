@@ -1,6 +1,6 @@
 package com.eastflag.nnc.user;
 
-import com.eastflag.nnc.auth.PrincipalDetails;
+import com.eastflag.nnc.auth.CustomUserDetails;
 import com.eastflag.nnc.token.Token;
 import jakarta.persistence.*;
 
@@ -34,7 +34,7 @@ public class User {
   @OneToMany(mappedBy = "user")
   private List<Token> tokens;
 
-  public PrincipalDetails getPrincipalDetails() {
-    return new PrincipalDetails(this);
+  public CustomUserDetails getPrincipalDetails() {
+    return new CustomUserDetails(this);
   }
 }
