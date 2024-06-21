@@ -1,6 +1,7 @@
 package com.eastflag.nnc.auth;
 
 import com.eastflag.nnc.common.CommonResponse;
+import com.eastflag.nnc.common.ResponseMessage;
 import com.eastflag.nnc.config.JwtService;
 import com.eastflag.nnc.token.Token;
 import com.eastflag.nnc.token.TokenRepository;
@@ -10,6 +11,7 @@ import com.eastflag.nnc.user.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -27,7 +29,7 @@ public class AuthenticationService {
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
 
-  public AuthenticationResponse register(RegisterRequest request) {
+  public CommonResponse register(RegisterRequest request) {
     var user = User.builder()
         .nickname(request.getNickname())
         .email(request.getEmail())
@@ -39,24 +41,28 @@ public class AuthenticationService {
     var jwtToken = jwtService.generateToken(userDetails);
 
     saveUserToken(savedUser, jwtToken);
-    return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
-        .build();
+    var authenticationResponse = AuthenticationResponse.builder().accessToken(jwtToken).build();
+    return CommonResponse.builder()
+            .code(0)
+            .message(ResponseMessage.SUCCESS)
+            .data(authenticationResponse)
+            .build();
   }
 
+  @Transactional
   public CommonResponse authenticate(AuthenticationRequest request) {
     var optionalUser = repository.findByEmail(request.getEmail());
     if (optionalUser.isEmpty()) {
       return CommonResponse.builder()
               .code(100)
-              .message("FAIL").build();
+              .message(ResponseMessage.MEMBER_NOT_FOUND).build();
     }
 
     var user = optionalUser.get();
     if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
       return CommonResponse.builder()
               .code(100)
-              .message("FAIL").build();
+              .message(ResponseMessage.APP_LOGIN_FAIL).build();
     }
 
     var userDetails = user.getPrincipalDetails();
@@ -69,7 +75,7 @@ public class AuthenticationService {
         .build();
     return CommonResponse.builder()
             .code(0)
-            .message("SUCCESS")
+            .message(ResponseMessage.SUCCESS)
             .data(authenticationResponse)
             .build();
   }
@@ -84,6 +90,10 @@ public class AuthenticationService {
     tokenRepository.save(token);
   }
 
+  /**
+   * 한 아이디로 중복 로그인 불가
+   * @param user
+   */
   private void revokeAllUserTokens(User user) {
     var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
     if (validUserTokens.isEmpty())

@@ -15,5 +15,5 @@ public class RegisterRequest {
   private String nickname;
   private String email;
   private String password;
-  private Role role;
+  private Role role = Role.USER;
 }
