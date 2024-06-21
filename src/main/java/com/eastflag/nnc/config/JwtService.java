@@ -1,10 +1,15 @@
 package com.eastflag.nnc.config;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import java.security.SignatureException;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -15,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+@Log4j2
 @Service
 public class JwtService {
 
@@ -74,12 +80,23 @@ public class JwtService {
   }
 
   private Claims extractAllClaims(String token) {
-    return Jwts
-        .parserBuilder()
-        .setSigningKey(getSignInKey())
-        .build()
-        .parseClaimsJws(token)
-        .getBody();
+    try {
+      return Jwts
+          .parserBuilder()
+          .setSigningKey(getSignInKey())
+          .build()
+          .parseClaimsJws(token)
+          .getBody();
+    } catch (MalformedJwtException e) {
+      log.info("MalformedJwtException");
+      throw new JwtException(e.getMessage());
+    } catch (ExpiredJwtException e) {
+      log.info("ExpiredJwtException");
+      throw new JwtException(e.getMessage());
+    } catch (IllegalArgumentException e) {
+      log.info("IllegalArgumentException");
+      throw new JwtException(e.getMessage());
+    }
   }
 
   private Key getSignInKey() {
