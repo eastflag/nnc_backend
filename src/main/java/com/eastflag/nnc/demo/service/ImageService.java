@@ -45,6 +45,7 @@ public class ImageService {
         if (imageEntity.isPresent()) {
             return ImageDTO.builder()
                     .image(imageEntity.get().getImage())
+                    .type(imageEntity.get().getType())
                     .build();
         }
         return null;

@@ -46,7 +46,7 @@ public class DemoController {
   }
 
   @GetMapping("/demo/image/{id}")
-  public ResponseEntity findOne(@PathVariable int id) {
+  public ResponseEntity getImage(@PathVariable int id) {
     var imageDTO = imageService.getImage(id);
 
     HttpHeaders headers = new HttpHeaders();
