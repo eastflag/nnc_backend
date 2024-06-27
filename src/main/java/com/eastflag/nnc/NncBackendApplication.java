@@ -18,7 +18,7 @@ public class NncBackendApplication {
 		SpringApplication.run(NncBackendApplication.class, args);
 	}
 
-	/*@Bean
+	@Bean
 	public CommandLineRunner commandLineRunner(
 			AuthenticationService service
 	) {
@@ -29,7 +29,7 @@ public class NncBackendApplication {
 					.password("password")
 					.role(ADMIN)
 					.build();
-			System.out.println("token: " + service.register(admin).getAccessToken());
+			System.out.println("token: " + service.register(admin).getData().toString());
 
 			var manager = RegisterRequest.builder()
 					.nickname("manager")
@@ -37,7 +37,7 @@ public class NncBackendApplication {
 					.password("password")
 					.role(MANAGER)
 					.build();
-			System.out.println("token: " + service.register(manager).getAccessToken());
+			System.out.println("token: " + service.register(manager).getData().toString());
 
 			var user1 = RegisterRequest.builder()
 					.nickname("user1")
@@ -45,9 +45,9 @@ public class NncBackendApplication {
 					.password("password")
 					.role(USER)
 					.build();
-			System.out.println("token: " + service.register(user1).getAccessToken());
+			System.out.println("token: " + service.register(user1).getData().toString());
 
 		};
-	}*/
+	}
 
 }
