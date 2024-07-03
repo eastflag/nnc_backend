@@ -1,5 +1,8 @@
-package com.eastflag.nnc.auth;
+package com.eastflag.nnc.auth.service;
 
+import com.eastflag.nnc.auth.dto.AuthenticationRequest;
+import com.eastflag.nnc.auth.dto.AuthenticationResponse;
+import com.eastflag.nnc.auth.dto.RegisterRequest;
 import com.eastflag.nnc.common.CommonResponse;
 import com.eastflag.nnc.common.ResponseMessage;
 import com.eastflag.nnc.config.JwtService;
@@ -8,15 +11,9 @@ import com.eastflag.nnc.token.TokenRepository;
 import com.eastflag.nnc.token.TokenType;
 import com.eastflag.nnc.user.User;
 import com.eastflag.nnc.user.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
-import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpHeaders;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,8 @@
-package com.eastflag.nnc.auth;
+package com.eastflag.nnc.auth.controller;
 
+import com.eastflag.nnc.auth.dto.AuthenticationRequest;
+import com.eastflag.nnc.auth.dto.RegisterRequest;
+import com.eastflag.nnc.auth.service.AuthenticationService;
 import com.eastflag.nnc.common.CommonResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
