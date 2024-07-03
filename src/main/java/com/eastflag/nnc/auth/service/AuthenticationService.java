@@ -27,6 +27,8 @@ public class AuthenticationService {
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
 
+  // signup 과 동시에 login
+  @Transactional
   public CommonResponse register(RegisterRequest request) {
     var user = User.builder()
         .nickname(request.getNickname())
@@ -89,6 +91,8 @@ public class AuthenticationService {
     var jwt = accessToken.substring(7);
     var storedToken = tokenRepository.findByToken(jwt)
             .orElse(null);
+
+    // black token 처리
     if (storedToken != null) {
       storedToken.setRevoked(true);
       tokenRepository.save(storedToken);
