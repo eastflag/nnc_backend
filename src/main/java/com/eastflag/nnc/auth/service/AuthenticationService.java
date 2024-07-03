@@ -68,7 +68,7 @@ public class AuthenticationService {
     var userDetails = user.getPrincipalDetails();
     var jwtToken = jwtService.generateToken(userDetails);
 
-    revokeAllUserTokens(user);
+    // revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
     var authenticationResponse = AuthenticationResponse.builder()
         .accessToken(jwtToken)
