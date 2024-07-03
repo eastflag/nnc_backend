@@ -1,6 +1,7 @@
 package com.eastflag.nnc.auth;
 
 import com.eastflag.nnc.common.CommonResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,16 +14,12 @@ public class AuthenticationController {
   private final AuthenticationService service;
 
   @PostMapping("/signup")
-  public ResponseEntity<CommonResponse> register(
-      @RequestBody RegisterRequest request
-  ) {
+  public ResponseEntity<CommonResponse> register(@RequestBody @Valid RegisterRequest request) {
     return ResponseEntity.ok(service.register(request));
   }
 
   @PostMapping("/login")
-  public ResponseEntity<CommonResponse> authenticate(
-      @RequestBody AuthenticationRequest request
-  ) {
+  public ResponseEntity<CommonResponse> authenticate(@RequestBody @Valid AuthenticationRequest request) {
     return ResponseEntity.ok(service.authenticate(request));
   }
 

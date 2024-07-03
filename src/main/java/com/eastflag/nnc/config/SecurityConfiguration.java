@@ -31,7 +31,6 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final JwtExceptionFilter jwtExceptionFilter;
 //    private final AuthenticationProvider authenticationProvider;  // ApplicationConfig 에서 AuthenticationProvider 재정의
-    private final LogoutHandler logoutHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

@@ -18,7 +18,7 @@ public class NncBackendApplication {
 		SpringApplication.run(NncBackendApplication.class, args);
 	}
 
-	@Bean
+/*	@Bean
 	public CommandLineRunner commandLineRunner(
 			AuthenticationService service
 	) {
@@ -48,6 +48,6 @@ public class NncBackendApplication {
 			System.out.println("token: " + service.register(user1).getData().toString());
 
 		};
-	}
+	}*/
 
 }

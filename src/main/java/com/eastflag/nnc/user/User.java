@@ -24,6 +24,7 @@ public class User {
 
   private String nickname;
 
+  @Column(unique = true, nullable = false)
   private String email;
 
   private String password;
