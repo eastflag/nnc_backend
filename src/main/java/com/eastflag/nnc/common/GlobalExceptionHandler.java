@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,18 @@ public class GlobalExceptionHandler {
         var result = CommonResponse.builder()
                 .code(400)
                 .message(errors.toString())
+                .build();
+
+        return ResponseEntity.ok(result);
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    protected ResponseEntity<CommonResponse> handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException ex) {
+        log.error("SQLIntegrityConstraintViolationException: {}", ex.getMessage());
+
+        var result = CommonResponse.builder()
+                .code(500)
+                .message(ex.getMessage())
                 .build();
 
         return ResponseEntity.ok(result);
