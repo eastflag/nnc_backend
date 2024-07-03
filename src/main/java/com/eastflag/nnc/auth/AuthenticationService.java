@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -77,6 +78,29 @@ public class AuthenticationService {
             .code(0)
             .message(ResponseMessage.SUCCESS)
             .data(authenticationResponse)
+            .build();
+  }
+
+  @Transactional
+  public CommonResponse logout(String accessToken) {
+    if (accessToken == null ||!accessToken.startsWith("Bearer ")) {
+      return CommonResponse.builder()
+              .code(400)
+              .message(ResponseMessage.JWT_NOT_FOUND)
+              .build();
+    }
+    var jwt = accessToken.substring(7);
+    var storedToken = tokenRepository.findByToken(jwt)
+            .orElse(null);
+    if (storedToken != null) {
+      storedToken.setRevoked(true);
+      tokenRepository.save(storedToken);
+      SecurityContextHolder.clearContext();
+    }
+
+    return CommonResponse.builder()
+            .code(0)
+            .message(ResponseMessage.SUCCESS)
             .build();
   }
 
