@@ -41,10 +41,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       filterChain.doFilter(request, response);
       return;
     }
+
     jwt = authHeader.substring(7);
     userEmail = jwtService.extractUsername(jwt);
     if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = this.principalDetailsService.loadUserByUsername(userEmail);
+      // 블랙토큰인지 체크
       var isTokenValid = tokenRepository.findByToken(jwt)
           .map(t -> !t.isRevoked())
           .orElse(false);
