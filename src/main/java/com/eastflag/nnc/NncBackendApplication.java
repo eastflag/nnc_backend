@@ -1,7 +1,7 @@
 package com.eastflag.nnc;
 
-import com.eastflag.nnc.auth.AuthenticationService;
-import com.eastflag.nnc.auth.RegisterRequest;
+import com.eastflag.nnc.auth.service.AuthenticationService;
+import com.eastflag.nnc.auth.dto.RegisterRequest;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +18,7 @@ public class NncBackendApplication {
 		SpringApplication.run(NncBackendApplication.class, args);
 	}
 
-/*	@Bean
+	@Bean
 	public CommandLineRunner commandLineRunner(
 			AuthenticationService service
 	) {
@@ -48,6 +48,6 @@ public class NncBackendApplication {
 			System.out.println("token: " + service.register(user1).getData().toString());
 
 		};
-	}*/
+	}
 
 }
