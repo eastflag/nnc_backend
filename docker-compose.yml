@@ -14,3 +14,13 @@ services:
       MARIADB_USER: nnc
       MARIADB_PASSWORD: abcd1234
       MARIADB_ROOT_PASSWORD: 1111
+
+  redis:
+    image: redis
+    command: redis-server --port 6379
+    container_name: docker_redis
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    ports:
+      - 6379:6379
