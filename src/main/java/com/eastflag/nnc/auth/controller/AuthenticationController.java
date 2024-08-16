@@ -1,6 +1,7 @@
 package com.eastflag.nnc.auth.controller;
 
 import com.eastflag.nnc.auth.dto.AuthenticationRequest;
+import com.eastflag.nnc.auth.dto.AuthenticationResponse;
 import com.eastflag.nnc.auth.dto.RegisterRequest;
 import com.eastflag.nnc.auth.service.AuthenticationService;
 import com.eastflag.nnc.common.CommonResponse;
@@ -17,17 +18,17 @@ public class AuthenticationController {
   private final AuthenticationService service;
 
   @PostMapping("/signup")
-  public ResponseEntity<CommonResponse> register(@RequestBody @Valid RegisterRequest request) {
-    return ResponseEntity.ok(service.register(request));
+  public ResponseEntity<CommonResponse<AuthenticationResponse>> signup(@RequestBody @Valid RegisterRequest request) {
+    return ResponseEntity.ok(service.signup(request));
   }
 
   @PostMapping("/login")
-  public ResponseEntity<CommonResponse> authenticate(@RequestBody @Valid AuthenticationRequest request) {
-    return ResponseEntity.ok(service.authenticate(request));
+  public ResponseEntity<CommonResponse<AuthenticationResponse>> login(@RequestBody @Valid AuthenticationRequest request) {
+    return ResponseEntity.ok(service.login(request));
   }
 
   @GetMapping("/logout")
-  public ResponseEntity<CommonResponse> logout(@RequestHeader("Authorization") String accessToken) {
+  public ResponseEntity<CommonResponse<AuthenticationResponse>> logout(@RequestHeader("Authorization") String accessToken) {
     return ResponseEntity.ok(service.logout(accessToken));
   }
 }

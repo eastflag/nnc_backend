@@ -29,7 +29,7 @@ public class AuthenticationService {
 
   // signup 과 동시에 login
   @Transactional
-  public CommonResponse register(RegisterRequest request) {
+  public CommonResponse<AuthenticationResponse> signup(RegisterRequest request) {
     var user = User.builder()
         .nickname(request.getNickname())
         .email(request.getEmail())
@@ -42,7 +42,7 @@ public class AuthenticationService {
 
     saveUserToken(savedUser, jwtToken);
     var authenticationResponse = AuthenticationResponse.builder().accessToken(jwtToken).build();
-    return CommonResponse.builder()
+    return CommonResponse.<AuthenticationResponse>builder()
             .code(0)
             .message(ResponseMessage.SUCCESS)
             .data(authenticationResponse)
@@ -50,17 +50,17 @@ public class AuthenticationService {
   }
 
   @Transactional
-  public CommonResponse authenticate(AuthenticationRequest request) {
+  public CommonResponse<AuthenticationResponse> login(AuthenticationRequest request) {
     var optionalUser = repository.findByEmail(request.getEmail());
     if (optionalUser.isEmpty()) {
-      return CommonResponse.builder()
+      return CommonResponse.<AuthenticationResponse>builder()
               .code(100)
               .message(ResponseMessage.MEMBER_NOT_FOUND).build();
     }
 
     var user = optionalUser.get();
     if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-      return CommonResponse.builder()
+      return CommonResponse.<AuthenticationResponse>builder()
               .code(100)
               .message(ResponseMessage.APP_LOGIN_FAIL).build();
     }
@@ -73,7 +73,7 @@ public class AuthenticationService {
     var authenticationResponse = AuthenticationResponse.builder()
         .accessToken(jwtToken)
         .build();
-    return CommonResponse.builder()
+    return CommonResponse.<AuthenticationResponse>builder()
             .code(0)
             .message(ResponseMessage.SUCCESS)
             .data(authenticationResponse)
@@ -81,9 +81,9 @@ public class AuthenticationService {
   }
 
   @Transactional
-  public CommonResponse logout(String accessToken) {
+  public CommonResponse<AuthenticationResponse> logout(String accessToken) {
     if (accessToken == null ||!accessToken.startsWith("Bearer ")) {
-      return CommonResponse.builder()
+      return CommonResponse.<AuthenticationResponse>builder()
               .code(400)
               .message(ResponseMessage.JWT_NOT_FOUND)
               .build();
@@ -99,7 +99,7 @@ public class AuthenticationService {
       SecurityContextHolder.clearContext();
     }
 
-    return CommonResponse.builder()
+    return CommonResponse.<AuthenticationResponse>builder()
             .code(0)
             .message(ResponseMessage.SUCCESS)
             .build();
