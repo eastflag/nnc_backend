@@ -1,6 +1,7 @@
 package com.eastflag.nnc.user;
 
 import com.eastflag.nnc.auth.CustomUserDetails;
+import com.eastflag.nnc.common.BaseEntity;
 import com.eastflag.nnc.token.Token;
 import jakarta.persistence.*;
 
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

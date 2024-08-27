@@ -1,5 +1,6 @@
 package com.eastflag.nnc.demo.entity;
 
+import com.eastflag.nnc.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "image")
-public class ImageEntity {
+public class ImageEntity extends BaseEntity {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)

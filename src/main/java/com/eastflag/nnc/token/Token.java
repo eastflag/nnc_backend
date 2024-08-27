@@ -1,5 +1,6 @@
 package com.eastflag.nnc.token;
 
+import com.eastflag.nnc.common.BaseEntity;
 import com.eastflag.nnc.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Token {
+public class Token extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
