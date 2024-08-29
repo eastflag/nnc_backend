@@ -25,8 +25,12 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
+    // /error 가 없으면 스프링 시큐리티는 모든 에러를 403으로 리턴한다.
+    // 존재하지 않는 url은 404 json이 아니라 text 이면 415 등을 리턴하기 위해서 /error를 추가한다.
+    // https://colabear754.tistory.com/182
     private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**",
             "/api/v1/demo/**",
+            "/error",
             };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final JwtExceptionFilter jwtExceptionFilter;
