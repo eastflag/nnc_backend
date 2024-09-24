@@ -1,7 +1,7 @@
 package com.eastflag.nnc.auth;
 
-import com.eastflag.nnc.user.Role;
-import com.eastflag.nnc.user.User;
+import com.eastflag.nnc.user.model.Role;
+import com.eastflag.nnc.user.model.User;
 import java.util.Collection;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

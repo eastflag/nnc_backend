@@ -1,5 +1,8 @@
-package com.eastflag.nnc.user;
+package com.eastflag.nnc.user.service;
 
+import com.eastflag.nnc.user.ChangePasswordRequest;
+import com.eastflag.nnc.user.model.User;
+import com.eastflag.nnc.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;

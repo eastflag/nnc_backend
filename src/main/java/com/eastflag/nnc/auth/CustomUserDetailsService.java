@@ -1,7 +1,7 @@
 package com.eastflag.nnc.auth;
 
-import com.eastflag.nnc.user.User;
-import com.eastflag.nnc.user.UserRepository;
+import com.eastflag.nnc.user.model.User;
+import com.eastflag.nnc.user.repository.UserRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

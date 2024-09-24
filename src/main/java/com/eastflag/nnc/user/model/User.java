@@ -1,4 +1,4 @@
-package com.eastflag.nnc.user;
+package com.eastflag.nnc.user.model;
 
 import com.eastflag.nnc.auth.CustomUserDetails;
 import com.eastflag.nnc.common.BaseEntity;

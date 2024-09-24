@@ -1,4 +1,4 @@
-package com.eastflag.nnc.user;
+package com.eastflag.nnc.user.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.eastflag.nnc.user.Permission.*;
+import static com.eastflag.nnc.user.model.Permission.*;
 
 @RequiredArgsConstructor
 public enum Role {

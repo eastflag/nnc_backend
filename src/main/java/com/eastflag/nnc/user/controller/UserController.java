@@ -1,5 +1,7 @@
-package com.eastflag.nnc.user;
+package com.eastflag.nnc.user.controller;
 
+import com.eastflag.nnc.user.ChangePasswordRequest;
+import com.eastflag.nnc.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;

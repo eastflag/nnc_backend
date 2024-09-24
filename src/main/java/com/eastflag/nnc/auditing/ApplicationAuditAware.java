@@ -1,6 +1,6 @@
 package com.eastflag.nnc.auditing;
 
-import com.eastflag.nnc.user.User;
+import com.eastflag.nnc.user.model.User;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

@@ -1,5 +1,7 @@
-package com.eastflag.nnc.user;
+package com.eastflag.nnc.user.repository;
 
+import com.eastflag.nnc.user.model.QUser;
+import com.eastflag.nnc.user.model.User;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

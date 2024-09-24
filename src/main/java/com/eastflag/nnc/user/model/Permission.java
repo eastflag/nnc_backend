@@ -1,4 +1,4 @@
-package com.eastflag.nnc.user;
+package com.eastflag.nnc.user.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

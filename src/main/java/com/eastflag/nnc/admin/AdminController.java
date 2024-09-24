@@ -1,6 +1,6 @@
 package com.eastflag.nnc.admin;
 
-import com.eastflag.nnc.user.User;
+import com.eastflag.nnc.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

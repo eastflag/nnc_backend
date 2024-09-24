@@ -1,6 +1,6 @@
 package com.eastflag.nnc.auth.dto;
 
-import com.eastflag.nnc.user.Role;
+import com.eastflag.nnc.user.model.Role;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
