@@ -46,8 +46,6 @@
                 </Delete>
             </DefaultRolloverstrategy>
         </RollingFile>
-
-
     </Appenders>
 
     <!--TRACE > DEBUG > INFO > WARN > ERROR > FATAL -->
@@ -60,12 +58,12 @@
         </logger>
 
         <!-- rolling file에는 debug, console에는 info 분리하여 처리 가능하다. -->
-        <logger name="com.eastflag.nnc" level="WARN" additivity="false" >
-            <AppenderRef ref="daily_error" />
+        <logger name="com.eastflag.nnc" level="DEBUG" additivity="false" >
+            <AppenderRef ref="console" />
         </logger>
 
         <!-- ROOT logger-->
-        <Root level="INFO" additivity="true">
+        <Root level="INFO">
             <AppenderRef ref="console" />
         </Root>
     </Loggers>

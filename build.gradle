@@ -26,7 +26,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	// log4j2 와 log4j2.xml을 사용하기 위한 의존성
 	implementation "org.springframework.boot:spring-boot-starter-log4j2"
+	implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.14.2"
+	// jwt
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
