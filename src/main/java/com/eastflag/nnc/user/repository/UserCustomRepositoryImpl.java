@@ -5,7 +5,6 @@ import com.eastflag.nnc.user.dto.UserSearchDto;
 import com.eastflag.nnc.user.model.QUser;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,8 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
-
-import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -27,7 +24,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
 
         var content =  jpaQueryFactory
                 // DTO로 변환
-                .select(Projections.fields(UserDto.class, user.id, user.email, user.nickname))
+                .select(Projections.fields(UserDto.class, user.id, user.email, user.nickname, user.role, user.created))
                 .from(user)
                 // 동적 쿼리 email like '%조건%' and nickname like '%조건'
                 .where(emailLike(userSearchDto.getEmail()),
