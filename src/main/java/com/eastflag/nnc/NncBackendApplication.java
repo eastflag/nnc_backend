@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import static com.eastflag.nnc.user.Role.*;
+import static com.eastflag.nnc.user.model.Role.*;
 
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
@@ -18,7 +18,7 @@ public class NncBackendApplication {
 		SpringApplication.run(NncBackendApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	public CommandLineRunner commandLineRunner(
 			AuthenticationService service
 	) {
@@ -48,6 +48,6 @@ public class NncBackendApplication {
 			System.out.println("token: " + service.signup(user1).getData().toString());
 
 		};
-	}
+	}*/
 
 }

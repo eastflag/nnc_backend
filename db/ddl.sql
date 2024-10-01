@@ -1,3 +1,6 @@
+insert into user(email, password, nickname, role, created) values ('admin@mail.com', '$2a$10$TECvjGYX.A0VQVnGfXFGnupV9Wld8bvrZxWgbTZJsu6Oh3UqkPLrC', 'admin', 'ADMIN', now());
+insert into user(email, password, nickname, role, created) values ('manager@mail.com', '$2a$10$TECvjGYX.A0VQVnGfXFGnupV9Wld8bvrZxWgbTZJsu6Oh3UqkPLrC', 'manager', 'MANAGER', now());
+insert into user(email, password, nickname, role, created) values ('user1@mail.com', '$2a$10$TECvjGYX.A0VQVnGfXFGnupV9Wld8bvrZxWgbTZJsu6Oh3UqkPLrC', 'user1', 'USER', now());
 insert into user(email, password, nickname, role, created) values ('user2@mail.com', '$2a$10$TECvjGYX.A0VQVnGfXFGnupV9Wld8bvrZxWgbTZJsu6Oh3UqkPLrC', 'user2', 'USER', now());
 insert into user(email, password, nickname, role, created) values ('user3@mail.com', '$2a$10$TECvjGYX.A0VQVnGfXFGnupV9Wld8bvrZxWgbTZJsu6Oh3UqkPLrC', 'user3', 'USER', now());
 insert into user(email, password, nickname, role, created) values ('user4@mail.com', '$2a$10$TECvjGYX.A0VQVnGfXFGnupV9Wld8bvrZxWgbTZJsu6Oh3UqkPLrC', 'user4', 'USER', now());
