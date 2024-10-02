@@ -24,7 +24,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
 
         var content =  jpaQueryFactory
                 // DTO로 변환
-                .select(Projections.fields(UserDto.class, user.id, user.email, user.nickname, user.role, user.created))
+                .select(Projections.fields(UserDto.class, user.id, user.email, user.nickname, user.role, user.created, user.updated))
                 .from(user)
                 // 동적 쿼리 email like '%조건%' and nickname like '%조건'
                 .where(emailLike(userSearchDto.getEmail()),
