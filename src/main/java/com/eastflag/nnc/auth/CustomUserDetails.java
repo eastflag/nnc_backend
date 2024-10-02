@@ -16,6 +16,10 @@ public class CustomUserDetails implements UserDetails {
 
     private final User user;
 
+    public Integer getId() {
+        return user.getId();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //user객체에 유저 역활 뺴오기

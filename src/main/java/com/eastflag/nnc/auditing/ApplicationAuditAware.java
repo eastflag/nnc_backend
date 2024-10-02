@@ -1,5 +1,6 @@
 package com.eastflag.nnc.auditing;
 
+import com.eastflag.nnc.auth.CustomUserDetails;
 import com.eastflag.nnc.user.model.User;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -22,7 +23,7 @@ public class ApplicationAuditAware implements AuditorAware<Integer> {
             return Optional.empty();
         }
 
-        User userPrincipal = (User) authentication.getPrincipal();
-        return Optional.ofNullable(userPrincipal.getId());
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        return Optional.ofNullable(customUserDetails.getId());
     }
 }
