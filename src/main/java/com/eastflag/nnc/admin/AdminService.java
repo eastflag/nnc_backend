@@ -21,12 +21,19 @@ public class AdminService {
     }
 
     public void updateUser(UserDto userDto) {
-        Optional<User> optionalUser =userRepository.findById(userDto.getId());
+        Optional<User> optionalUser = userRepository.findById(userDto.getId());
         if (optionalUser.isPresent()) {
             var user = optionalUser.get();
             user.setRole(userDto.getRole());
             user.setNickname(userDto.getNickname());
             userRepository.save(user);
+        }
+    }
+
+    public void deleteUser(Integer id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            userRepository.deleteById(id);
         }
     }
 }

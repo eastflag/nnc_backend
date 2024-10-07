@@ -41,4 +41,14 @@ public class AdminController {
                 .build();
         return ResponseEntity.ok(result);
     }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<CommonResponse<?>> updateUser(@PathVariable("id") Integer id) {
+        adminService.deleteUser(id);
+        var result = CommonResponse.builder()
+                .code(0)
+                .message(ResponseMessage.SUCCESS)
+                .build();
+        return ResponseEntity.ok(result);
+    }
 }
