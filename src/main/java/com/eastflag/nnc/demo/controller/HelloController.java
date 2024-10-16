@@ -60,7 +60,7 @@ public class HelloController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/hello8")
+    @PostMapping("/hello9")
     public CommonResponse hello8(@RequestBody CommonResponse result) {
         return result;
     }
