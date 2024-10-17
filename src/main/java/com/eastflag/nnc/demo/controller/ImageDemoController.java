@@ -1,6 +1,5 @@
 package com.eastflag.nnc.demo.controller;
 
-import com.ctc.wstx.util.DataUtil;
 import com.eastflag.nnc.common.CommonResponse;
 import com.eastflag.nnc.common.ResponseMessage;
 import com.eastflag.nnc.demo.dto.ImageDTO;
@@ -18,7 +17,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/v1/demo/image")
 @RequiredArgsConstructor
-public class ImageController {
+public class ImageDemoController {
     private final ImageService imageService;
 
 

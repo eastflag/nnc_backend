@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/demo/validation")
 @RequiredArgsConstructor
-public class ValidationController {
+public class ValidationDemoController {
 
     @PostMapping("/sample")
     public ResponseEntity<CommonResponse<?>> authDemo(@RequestBody @Valid SampleDTO sampleDTO) {

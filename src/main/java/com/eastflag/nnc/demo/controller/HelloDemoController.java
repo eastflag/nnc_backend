@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/demo/hello")
 @Log4j2
-public class HelloController {
+public class HelloDemoController {
     // 모든 methood 허용
     @RequestMapping("/hello1")
     public String hello() {
