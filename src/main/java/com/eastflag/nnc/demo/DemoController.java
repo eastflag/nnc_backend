@@ -34,26 +34,5 @@ public class DemoController {
     return ResponseEntity.ok("Hello from /api/vi/user/demo");
   }
 
-  @PostMapping("/demo/image/upload")
-  public ResponseEntity<CommonResponse> imageUpload(@RequestParam("type") String type,
-                                                    @RequestParam("image") MultipartFile image) throws IOException {
-    var imageDTO = ImageDTO.builder()
-            .type(type)
-            .image(image.getBytes())
-            .build();
 
-    return ResponseEntity.ok(imageService.saveImage(imageDTO));
-  }
-
-  @GetMapping("/demo/image/{id}")
-  public ResponseEntity getImage(@PathVariable int id) {
-    var imageDTO = imageService.getImage(id);
-
-    HttpHeaders headers = new HttpHeaders();
-    headers.add("Content-Type", imageDTO.getType());
-
-    return ResponseEntity.ok()
-            .headers(headers)
-            .body(imageDTO.getImage());
-  }
 }

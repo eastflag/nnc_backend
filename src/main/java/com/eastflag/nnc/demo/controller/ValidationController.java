@@ -1,8 +1,8 @@
-package com.eastflag.nnc.demo;
+package com.eastflag.nnc.demo.controller;
 
 import com.eastflag.nnc.common.CommonResponse;
 import com.eastflag.nnc.common.ResponseMessage;
-import com.eastflag.nnc.demo.dto.TvDTO;
+import com.eastflag.nnc.demo.dto.SampleDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Log4j2
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/demo/validation")
 @RequiredArgsConstructor
 public class ValidationController {
 
-    @PostMapping("/demo/tv")
-    public ResponseEntity<CommonResponse> authDemo(@RequestBody @Valid TvDTO tvDTO) {
-        log.info("tv {}", tvDTO.toString());
+    @PostMapping("/sample")
+    public ResponseEntity<CommonResponse<?>> authDemo(@RequestBody @Valid SampleDTO sampleDTO) {
+        log.info("sample {}", sampleDTO.toString());
         var result = CommonResponse.builder()
                 .code(0)
                 .message(ResponseMessage.SUCCESS)

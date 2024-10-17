@@ -44,9 +44,11 @@ public class HelloController {
         return "Hello " + page;
     }
 
-    // post method도 query parameter 사용 가능
+    // post 일 경우 query parameter url로 보낼 수도 있고
+    // form-data 방식으로 body에 보낼수도 있다.
     @PostMapping("/hello6")
     public String hello6(@RequestParam("name") String name) {
+        log.debug("name {}", name);
         return "Hello " + name;
     }
 
