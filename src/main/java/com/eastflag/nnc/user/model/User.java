@@ -1,6 +1,7 @@
 package com.eastflag.nnc.user.model;
 
 import com.eastflag.nnc.auth.CustomUserDetails;
+import com.eastflag.nnc.board.model.Board;
 import com.eastflag.nnc.common.BaseEntity;
 import com.eastflag.nnc.token.Token;
 import jakarta.persistence.*;
@@ -35,6 +36,9 @@ public class User extends BaseEntity {
 
   @OneToMany(mappedBy = "user")
   private List<Token> tokens;
+
+  @OneToMany(mappedBy = "user")
+  private List<Board> boards;
 
   public CustomUserDetails getPrincipalDetails() {
     return new CustomUserDetails(this);
