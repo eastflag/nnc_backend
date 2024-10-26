@@ -3,7 +3,7 @@ package com.eastflag.nnc.demo.controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/management")
+@RequestMapping("/api/v1/management/demo")
 // @PreAuthorize("hasRole('MANAGER')") => SecurityConfiguration 에 이미 정의되어있음.
 public class ManagementDemoController {
 
