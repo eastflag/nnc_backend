@@ -4,7 +4,6 @@ import com.eastflag.nnc.board.dto.BoardDto;
 import com.eastflag.nnc.board.dto.BoardSearchDto;
 import com.eastflag.nnc.board.model.QBoard;
 import com.eastflag.nnc.board_category.model.QBoardCategory;
-import com.eastflag.nnc.user.model.QUser;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -30,7 +29,7 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
                 .select(Projections.fields(BoardDto.class, board.id, board.title, board.created, board.updated))
                 .from(board)
                 .innerJoin(board.boardCategory, boardCategory)
-                .where(boardCategory.name.eq(boardSearchDto.getCategoryName()),
+                .where(categoryNameEqual(boardSearchDto.getCategoryName()),
                         titleLike(boardSearchDto.getTitle()))
                 .offset(pageable.getOffset()) // 몇 번째 페이지부터 시작할 것 인지.
                 .limit(pageable.getPageSize()) // 페이지당 몇개의 데이터를 보여줄껀지
@@ -39,12 +38,15 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
         var countQuery = jpaQueryFactory
                 .select(board.count())
                 .from(board)
-                .where(boardCategory.name.eq(boardSearchDto.getCategoryName()),
+                .where(categoryNameEqual(boardSearchDto.getCategoryName()),
                         titleLike(boardSearchDto.getTitle()));
 
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 
+    private BooleanExpression categoryNameEqual(String categoryName) {
+        return StringUtils.hasText(categoryName) ? QBoardCategory.boardCategory.name.eq(categoryName) : null;
+    }
 
     private BooleanExpression titleLike(String title) {
         return StringUtils.hasText(title) ? QBoard.board.title.contains(title) : null;

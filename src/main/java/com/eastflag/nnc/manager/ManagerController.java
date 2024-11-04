@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/manager")
-@PreAuthorize("hasRole('MANAGER')")
+@PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
 @RequiredArgsConstructor
 @Log4j2
 public class ManagerController {
@@ -22,7 +22,7 @@ public class ManagerController {
 
     @GetMapping("/board/paged_list")
     public ResponseEntity<CommonResponse<?>> getUserList(BoardSearchDto boardSearchDto, Pageable pageable) {
-        log.debug("user: {}, pageable: {}", boardSearchDto, pageable);
+        log.debug("board: {}, pageable: {}", boardSearchDto, pageable);
         var pagedBoardDto =  managerService.getBoardList(boardSearchDto, pageable);
         var result = CommonResponse.builder()
                 .code(0)
