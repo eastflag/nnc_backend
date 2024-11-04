@@ -34,13 +34,12 @@ public enum Role {
                   MANAGER_DELETE,
                   MANAGER_CREATE
           )
-  )
-
-  ;
+  );
 
   @Getter
   private final Set<Permission> permissions;
 
+  // admin: [management:delete, admin:update, admin:create, management:update, management:read, management:create, admin:delete, admin:read, ROLE_ADMIN]
   public List<SimpleGrantedAuthority> getAuthorities() {
     var authorities = getPermissions()
             .stream()

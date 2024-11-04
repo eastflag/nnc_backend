@@ -1,5 +1,6 @@
 package com.eastflag.nnc.config;
 
+import com.eastflag.nnc.auth.CustomUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
@@ -40,26 +41,29 @@ public class JwtService {
     return claimsResolver.apply(claims);
   }
 
-  public String generateToken(UserDetails userDetails) {
-    return generateToken(new HashMap<>(), userDetails);
+  public String generateToken(CustomUserDetails customUserDetails) {
+    var extraClaims = new HashMap<String, Object>();
+    extraClaims.put("role", customUserDetails.getRole().name());
+
+    return generateToken(extraClaims, customUserDetails);
   }
 
   public String generateToken(
       Map<String, Object> extraClaims,
-      UserDetails userDetails
+      CustomUserDetails customUserDetails
   ) {
-    return buildToken(extraClaims, userDetails, jwtExpiration);
+    return buildToken(extraClaims, customUserDetails, jwtExpiration);
   }
 
   private String buildToken(
           Map<String, Object> extraClaims,
-          UserDetails userDetails,
+          CustomUserDetails customUserDetails,
           long expiration
   ) {
     return Jwts
             .builder()
             .setClaims(extraClaims)
-            .setSubject(userDetails.getUsername())
+            .setSubject(customUserDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date(System.currentTimeMillis() + expiration))
             .signWith(getSignInKey(), SignatureAlgorithm.HS256)
