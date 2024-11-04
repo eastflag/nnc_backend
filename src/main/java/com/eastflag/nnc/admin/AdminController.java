@@ -51,4 +51,15 @@ public class AdminController {
                 .build();
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/category/list")
+    public ResponseEntity<CommonResponse<?>> getCategoryList() {
+        var boardCategoryList =  adminService.getBoardCategoryList();
+        var result = CommonResponse.builder()
+                .code(0)
+                .message(ResponseMessage.SUCCESS)
+                .data(boardCategoryList)
+                .build();
+        return ResponseEntity.ok(result);
+    }
 }

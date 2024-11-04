@@ -1,5 +1,8 @@
 package com.eastflag.nnc.admin;
 
+import com.eastflag.nnc.board_category.dto.BoardCategoryDto;
+import com.eastflag.nnc.board_category.model.BoardCategory;
+import com.eastflag.nnc.board_category.repository.BoardCategoryRepository;
 import com.eastflag.nnc.user.dto.UserDto;
 import com.eastflag.nnc.user.dto.UserSearchDto;
 import com.eastflag.nnc.user.model.User;
@@ -9,12 +12,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AdminService {
     private final UserRepository userRepository;
+    private final BoardCategoryRepository boardCategoryRepository;
 
     public Page<UserDto> getUserList(UserSearchDto userSearchDto, Pageable pageable) {
         return userRepository.findAllBySearch(userSearchDto, pageable);
@@ -35,5 +41,16 @@ public class AdminService {
         if (optionalUser.isPresent()) {
             userRepository.deleteById(id);
         }
+    }
+
+    public List<BoardCategoryDto> getBoardCategoryList() {
+        List<BoardCategory> boardCategoryList = boardCategoryRepository.findAll();
+        return boardCategoryList.stream().map(category -> {
+            return BoardCategoryDto.builder()
+                    .id(category.getId())
+                    .name(category.getName())
+                    .useYn(category.getUseYn())
+                    .build();
+        }).collect(Collectors.toList());
     }
 }

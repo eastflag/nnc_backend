@@ -1,8 +1,10 @@
-package com.eastflag.nnc.board.model;
+package com.eastflag.nnc.board_category.model;
 
+import com.eastflag.nnc.board.model.Board;
 import com.eastflag.nnc.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 
@@ -24,4 +26,7 @@ public class BoardCategory extends BaseEntity {
 
     @Column(unique = true, nullable = false)
     private String name;
+
+    @ColumnDefault("true")
+    private Boolean useYn;
 }
