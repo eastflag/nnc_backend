@@ -1,5 +1,8 @@
 package com.eastflag.nnc.admin;
 
+import com.eastflag.nnc.board.dto.BoardDto;
+import com.eastflag.nnc.board.dto.BoardSearchDto;
+import com.eastflag.nnc.board.repository.BoardCustomRepository;
 import com.eastflag.nnc.board_category.dto.BoardCategoryDto;
 import com.eastflag.nnc.board_category.model.BoardCategory;
 import com.eastflag.nnc.board_category.repository.BoardCategoryRepository;
