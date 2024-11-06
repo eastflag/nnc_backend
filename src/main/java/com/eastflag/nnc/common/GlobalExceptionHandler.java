@@ -45,4 +45,29 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.ok(result);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    protected ResponseEntity<CommonResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
+        log.error("IllegalArgumentException: {}", ex.getMessage());
+
+        var result = CommonResponse.builder()
+                .code(500)
+                .message(ex.getMessage())
+                .build();
+
+        return ResponseEntity.ok(result);
+    }
+
+    @ExceptionHandler(CustomException.class)
+    protected ResponseEntity<CommonResponse> handleCustomException(CustomException ex) {
+        log.error("CustomException: {}", ex.getMessage());
+
+        var result = CommonResponse.builder()
+                .code(500)
+                .message(ex.getMessage())
+                .build();
+
+        return ResponseEntity.ok(result);
+    }
+
 }

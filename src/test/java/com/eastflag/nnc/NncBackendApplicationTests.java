@@ -1,5 +1,6 @@
 package com.eastflag.nnc;
 
+import com.eastflag.nnc.common.CustomException;
 import com.eastflag.nnc.user.model.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,4 +15,9 @@ class NncBackendApplicationTests {
         System.out.println("permissions: " + role.getPermissions());
 	}
 
+    @Test
+    void test2() {
+        var customException = new IllegalArgumentException("custom exception");
+        System.out.println("customException: " + customException.getMessage());
+    }
 }
