@@ -33,6 +33,17 @@ public class ManagerController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping("/board/{id}")
+    public ResponseEntity<CommonResponse<?>> getBoard(@PathVariable Long id) {
+        var boardDto = managerService.getBoard(id);
+        var result = CommonResponse.builder()
+                .code(0)
+                .message(ResponseMessage.SUCCESS)
+                .data(boardDto)
+                .build();
+        return ResponseEntity.ok(result);
+    }
+
     @PostMapping("/board")
     public ResponseEntity<CommonResponse<?>> createBoard(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                                          @RequestBody BoardDto boardDto) {
@@ -40,6 +51,18 @@ public class ManagerController {
         log.debug("boardDto: {}", boardDto);
 
         managerService.createBoard(boardDto);
+        var result = CommonResponse.builder()
+                .code(0)
+                .message(ResponseMessage.SUCCESS)
+                .build();
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("/board")
+    public ResponseEntity<CommonResponse<?>> updateBoard(@RequestBody BoardDto boardDto) {
+        log.debug("boardDto: {}", boardDto);
+
+        managerService.updateBoard(boardDto);
         var result = CommonResponse.builder()
                 .code(0)
                 .message(ResponseMessage.SUCCESS)

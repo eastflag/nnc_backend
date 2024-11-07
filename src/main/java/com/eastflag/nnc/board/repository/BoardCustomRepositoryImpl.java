@@ -33,6 +33,7 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
                         titleLike(boardSearchDto.getTitle()))
                 .offset(pageable.getOffset()) // 몇 번째 페이지부터 시작할 것 인지.
                 .limit(pageable.getPageSize()) // 페이지당 몇개의 데이터를 보여줄껀지
+                .orderBy(board.id.desc())
                 .fetch();
 
         var countQuery = jpaQueryFactory

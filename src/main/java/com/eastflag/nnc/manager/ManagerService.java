@@ -24,6 +24,15 @@ public class ManagerService {
         return boardCustomRepository.findBoardByCategory(boardSearchDto, pageable);
     }
 
+    public BoardDto getBoard(Long id ) {
+        var board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("user id doesn't exist"));
+        return BoardDto.builder()
+                .id(board.getId())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .build();
+    }
+
     public void createBoard(BoardDto boardDto) {
         var boardCategory = boardCategoryRepository.findById(boardDto.getCategoryId());
         var user = userRepository.findById(boardDto.getUserId());
@@ -33,6 +42,14 @@ public class ManagerService {
                 .user(user.orElseThrow(() -> new IllegalArgumentException("user id doesn't exist")))
                 .boardCategory(boardCategory.orElseThrow(() -> new IllegalArgumentException("user id doesn't exist")))
                 .build();
+        boardRepository.save(board);
+    }
+
+    public void updateBoard(BoardDto boardDto) {
+        var board = boardRepository.findById(boardDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("board id doesn't exist"));
+        board.setTitle(boardDto.getTitle());
+        board.setContent(boardDto.getContent());
         boardRepository.save(board);
     }
 }
