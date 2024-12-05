@@ -13,3 +13,11 @@ insert into user(email, password, nickname, role, created) values ('user10@mail.
 insert into board_category(id, name, created, created_by) values (1, '경제', now(), 1);
 insert into board_category(id, name, created, created_by) values (2, '문화', now(), 1);
 insert into board_category(id, name, created, created_by) values (3, '스포츠', now(), 1);
+
+
+insert into comment(id, content, created, user_id, board_id) values(1, 'test1', now(), 3, 3);
+insert into comment(id, content, created, user_id, board_id) values(2, 'test2', now(), 4, 3);
+insert into comment(id, content, created, user_id, board_id) values(3, 'test3', now(), 5, 3);
+insert into comment_like(comment_id, user_id, likeability, created, created_by, updated, updated_by) values(1, 4, now(), 4, now(), 4);
+insert into comment_like(comment_id, user_id, likeability, created, created_by, updated, updated_by) values(1, 5, now(), 5, now(), 5);
+insert into comment_like(comment_id, user_id, likeability, created, created_by, updated, updated_by) values(-1, 6, now(), 6, now(), 6);
