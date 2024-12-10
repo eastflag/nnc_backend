@@ -5,6 +5,7 @@ import com.eastflag.nnc.common.BaseEntity;
 import com.eastflag.nnc.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @Setter
@@ -18,7 +19,17 @@ public class Comment extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length=500, nullable = false)
+    private Long parent_id;
+
+    // 사용자에 의한 삭제
+    @ColumnDefault("false")
+    private Boolean isDeleted;
+
+    // 신고 등으로 차단
+    @ColumnDefault("false")
+    private Boolean isBlocked;
+
+    @Column(length=300, nullable = false)
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
